@@ -1,10 +1,12 @@
 package infrastructure.repositories;
 
-import domain.repositories.CertificateRepository;
 import domain.entities.CertificateEntity;
+import domain.repositories.CertificateRepository;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class CertificateRepositoryImpl implements CertificateRepository {
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public CertificateRepositoryImpl(EntityManager entityManager) {
@@ -32,13 +35,13 @@ public class CertificateRepositoryImpl implements CertificateRepository {
     }
 
     @Override
-    public Optional<CertificateEntity> findById(Long id) {
+    public Optional<CertificateEntity> findById(UUID id) {
         return Optional.ofNullable(entityManager.find(CertificateEntity.class, id));
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public void delete(UUID id) {
         try {
             CertificateEntity certificate = entityManager.find(CertificateEntity.class, id);
             if (certificate != null) {

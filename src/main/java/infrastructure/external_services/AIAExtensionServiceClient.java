@@ -18,24 +18,14 @@ public class AIAExtensionServiceClient implements IAIAExtensionServiceClient {
 
     @Override
     public X509Certificate fetchParentCertificate(String aiaExtensionUrl) throws IOException, CertificateException {
-        HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder()
-                    .uri(URI.create(aiaExtensionUrl))
-                    .GET()
-                    .build();
-        } catch (Exception e) {
-            throw new IOException("Invalid URL format", e);
-        }
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(aiaExtensionUrl))
+                .GET()
+                .build();
 
         HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
 
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         return (X509Certificate) certificateFactory.generateCertificate(new ByteArrayInputStream(response.body()));
     }
-}
-
-// IAIAExtensionServiceClient.java
-interface IAIAExtensionServiceClient {
-    X509Certificate fetchParentCertificate(String aiaExtensionUrl) throws IOException, CertificateException;
 }
