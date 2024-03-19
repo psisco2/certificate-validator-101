@@ -11,4 +11,5 @@ public class CertificateValidationException extends Exception {
         super(message);
         this.errorMessage = message;
     }
+
 }

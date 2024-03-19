@@ -2,8 +2,9 @@ package application.use_cases;
 
 import domain.entities.CertificateValidationResult;
 import domain.services.CertificateValidationDomainService;
-import domain.services.CertificateValidationDomainService.CertificateValidationException;
-import domain.services.CertificateValidationDomainService.TrustChainRetrievalException;
+import application.dtos.CertificateDTO;
+import application.exceptions.CertificateValidationException;
+import application.exceptions.TrustChainRetrievalException;
 import domain.ports.CertificateValidationPort;
 import lombok.RequiredArgsConstructor;
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -36,14 +37,4 @@ public class ValidateCertificateApplicationService {
 
         return result;
     }
-
-    // TODO: Extract the following DTO to its respective package and class name
-    // package application.dto;
-    // public class CertificateDTO {
-    //     public X509CertificateHolder toX509CertificateHolder() {
-    //         // Method implementation
-    //     }
-    // }
-
-    // TODO: Add import for CertificateDTO when the class is created.
 }
